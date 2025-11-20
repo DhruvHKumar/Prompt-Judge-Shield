@@ -39,6 +39,8 @@ INJECTION_KEYWORDS = {
     "server-side files": 1.0,
     "config.js": 1.0,
     "file named": 0.4,
+    "sudo rm -f": 1.0,
+    "rm -rf": 1.0,
 }
 
 class PromptInjectionResult(BaseModel):
