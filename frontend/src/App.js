@@ -23,7 +23,7 @@ function App() {
     setResult(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/guardrails/check', {
+      const response = await fetch('/api/v1/guardrails/check', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
