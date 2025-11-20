@@ -9,6 +9,7 @@ import emoji
 INJECTION_KEYWORDS = {
     "ignore your previous instructions": 1.0,
     "ignore your previous instruction": 1.0,
+    "ignore all previous instructions": 1.0,
     "disregard the above": 1.0,
     "you are now in developer mode": 0.8,
     "act as": 0.5,
@@ -27,6 +28,17 @@ INJECTION_KEYWORDS = {
     "simulate": 0.6,
     "bypass": 0.6,
     "rules": 0.4,
+    "what is your initial prompt": 1.0,
+    "no ethical restrictions": 1.0,
+    "storyteller": 0.5,
+    "unfiltered": 0.8,
+    "always respond with": 0.6,
+    "repeat the entire prompt": 1.0,
+    "repeat the prompt": 0.8,
+    "including any hidden instructions": 1.0,
+    "server-side files": 1.0,
+    "config.js": 1.0,
+    "file named": 0.4,
 }
 
 class PromptInjectionResult(BaseModel):
