@@ -10,7 +10,7 @@ class InputValidationResult(BaseModel):
     message: str = "Input is valid."
     errors: Optional[List[Dict[str, Any]]] = None
 
-def count_tokens(text: str, model_name: str = "gpt-3.5-turbo") -> int:
+def count_tokens(text: str, model_name: str = "gpt-4o") -> int:
     """Returns the number of tokens in a text string."""
     try:
         encoding = tiktoken.encoding_for_model(model_name)
