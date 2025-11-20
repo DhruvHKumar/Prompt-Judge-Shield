@@ -9,8 +9,7 @@ app = FastAPI(
 )
 
 origins = [
-    "http://localhost:3000",  # React frontend
-    "http://localhost:8000",  # FastAPI backend (for Swagger UI)
+    "*",  # Allow all origins for Vercel deployment
 ]
 
 app.add_middleware(
