@@ -2,6 +2,10 @@
 
 A high-performance API and landing page for testing AI prompts against security vulnerabilities. Features built-in guardrails to detect prompt injection, content moderation issues, and input validation errors with low latency (<100ms).
 
+**New Features:**
+- **Token Segmentation Bias Protection**: Detects and blocks injection attempts hidden within emojis (e.g., "Ignore 😈 your 😈 previous...").
+- **Input Token Limits**: Enforces a strict token limit (1000 tokens) to prevent resource exhaustion and Denial of Wallet attacks.
+
 ## Project Structure
 
 ```

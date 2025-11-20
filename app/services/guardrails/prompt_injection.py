@@ -3,6 +3,8 @@
 from pydantic import BaseModel
 from typing import List, Dict
 
+import emoji
+
 # This is the same keyword-based detection logic from the original detection_service.py
 INJECTION_KEYWORDS = {
     "ignore your previous instructions": 1.0,
@@ -32,18 +34,38 @@ class PromptInjectionResult(BaseModel):
     risk_score: float
     details: Dict[str, List[str]]
 
+def strip_emojis(text: str) -> str:
+    """Removes emojis from the text."""
+    return emoji.replace_emoji(text, replace="")
+
 def analyze_prompt_for_injection(prompt: str) -> PromptInjectionResult:
     """
     Analyzes a prompt for potential injection attacks based on a set of heuristics.
+    Includes checks for emoji obfuscation.
     """
     risk_score = 0.0
     prompt_lower = prompt.lower()
     
     found_keywords = []
+    
+    # 1. Standard Keyword Check
     for keyword, weight in INJECTION_KEYWORDS.items():
         if keyword in prompt_lower:
             risk_score += weight
             found_keywords.append(keyword)
+
+    # 2. Emoji Obfuscation Check
+    # Strip emojis and check again to catch things like "I😈gnore"
+    prompt_no_emoji = strip_emojis(prompt).lower()
+    
+    # Only check if emojis were actually removed
+    if len(prompt_no_emoji) < len(prompt):
+        for keyword, weight in INJECTION_KEYWORDS.items():
+            # Only add if we haven't already found it in the standard check
+            # This prevents double counting, but ensures we catch hidden ones
+            if keyword in prompt_no_emoji and keyword not in prompt_lower:
+                risk_score += weight
+                found_keywords.append(f"{keyword} (hidden by emojis)")
 
     risk_score = min(risk_score, 1.0)
 
